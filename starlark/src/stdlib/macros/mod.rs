@@ -364,7 +364,7 @@ macro_rules! starlark_err {
             label: $label,
         }
         .into());
-    };
+    }
 }
 
 /// A shortcut to assert the type of a value
@@ -395,7 +395,7 @@ macro_rules! check_type {
                 )
             )
         }
-    };
+    }
 }
 
 /// Convert 2 indices according to Starlark indices convertion for function like .index.

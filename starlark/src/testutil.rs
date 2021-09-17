@@ -38,7 +38,7 @@ macro_rules! starlark_ok_fn {
     };
     ($fn:path, $t1:expr, $t2:expr) => {
         assert!($fn(&format!("{}{}", $t1, $t2)).unwrap());
-    };
+    }
 }
 
 /// Test that the execution of a starlark code raise an error
@@ -54,7 +54,7 @@ macro_rules! starlark_fail_fn {
             $c,
             $fn(&format!("{}{}", $t1, $t2)).err().unwrap().code.unwrap()
         );
-    };
+    }
 }
 
 /// A simple macro to execute a Starlark snippet and fails if the last statement is false.
