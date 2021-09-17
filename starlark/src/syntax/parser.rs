@@ -59,7 +59,7 @@ impl SyntaxError for lu::ParseError<u64, Token, LexerError> {
                 "Parse error: invalid token".to_owned(),
             ),
             lu::ParseError::UnrecognizedToken {
-                token: Some((_x, Token::Reserved(ref s), _y)),
+                token: (_x, Token::Reserved(ref s), _y),
                 expected: ref _unused,
             } => (
                 Some("Reserved keyword".to_owned()),
@@ -72,7 +72,7 @@ impl SyntaxError for lu::ParseError<u64, Token, LexerError> {
                 format!("Parse error: cannot use reserved keyword {}", s),
             ),
             lu::ParseError::UnrecognizedToken {
-                token: Some((_x, ref t, ..)),
+                token: (_x, ref t, ..),
                 ref expected,
             } => (
                 Some(format!("Expected {}", one_of(expected))),
@@ -88,10 +88,10 @@ impl SyntaxError for lu::ParseError<u64, Token, LexerError> {
                 Some(format!("Extraneous {}", t)),
                 format!("Parse error: extraneous token {}", t),
             ),
-            lu::ParseError::UnrecognizedToken { .. } => {
-                (None, "Parse error: unexpected end of file".to_owned())
-            }
             lu::ParseError::User { ref error } => return error.to_diagnostic(file_span),
+            lu::ParseError::UnrecognizedEOF { .. } => {
+                (None, "Parse error: unrecognized end of file".to_owned())
+            }
         };
         let sl = SpanLabel {
             span: match self {
@@ -99,7 +99,7 @@ impl SyntaxError for lu::ParseError<u64, Token, LexerError> {
                     file_span.subspan(*location, *location)
                 }
                 lu::ParseError::UnrecognizedToken {
-                    token: Some((x, .., y)),
+                    token: (x, .., y),
                     ..
                 } => file_span.subspan(x, y),
                 lu::ParseError::UnrecognizedToken { .. } => {
@@ -108,6 +108,9 @@ impl SyntaxError for lu::ParseError<u64, Token, LexerError> {
                 }
                 lu::ParseError::ExtraToken { token: (x, .., y) } => file_span.subspan(x, y),
                 lu::ParseError::User { .. } => unreachable!(),
+                lu::ParseError::UnrecognizedEOF { ref location, .. } => {
+                    file_span.subspan(*location, *location)
+                },
             },
             style: SpanStyle::Primary,
             label,
@@ -120,7 +123,7 @@ impl SyntaxError for lu::ParseError<u64, Token, LexerError> {
                 match self {
                     lu::ParseError::InvalidToken { .. } => INVALID_TOKEN_ERROR_CODE,
                     lu::ParseError::UnrecognizedToken {
-                        token: Some((_x, Token::Reserved(..), ..)),
+                        token: (_x, Token::Reserved(..), ..),
                         ..
                     }
                     | lu::ParseError::ExtraToken {
@@ -129,6 +132,7 @@ impl SyntaxError for lu::ParseError<u64, Token, LexerError> {
                     lu::ParseError::UnrecognizedToken { .. } => UNEXPECTED_TOKEN_ERROR_CODE,
                     lu::ParseError::ExtraToken { .. } => EXTRA_TOKEN_ERROR_CODE,
                     lu::ParseError::User { .. } => unreachable!(),
+                    lu::ParseError::UnrecognizedEOF { .. } => UNEXPECTED_TOKEN_ERROR_CODE,
                 }
                 .to_owned(),
             ),

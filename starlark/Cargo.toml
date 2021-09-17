@@ -28,18 +28,18 @@ repository = "https://github.com/google/starlark-rust"
 [lib]
 bench = false
 [dependencies.codemap]
-version = "0.1.1"
+version = "0.1"
 
 [dependencies.codemap-diagnostic]
-version = "0.1.1"
+version = "0.1"
 
 [dependencies.lalrpop-util]
-version = "0.16.0"
+version = "0.17"
 
 [dependencies.linked-hash-map]
-version = "0.5.1"
+version = "0.5"
 [build-dependencies.lalrpop]
-version = "0.16.0"
+version = "0.17"
 
 [features]
 trace = []
