@@ -13,11 +13,11 @@
 [package]
 edition = "2018"
 name = "starlark"
-version = "0.3.1"
+version = "0.3.2"
 authors = ["Damien Martin-Guillerez <dmarting@google.com>", "Stepan Koltsov <stepan.koltsov@gmail.com>"]
 build = "build.rs"
 description = "An implementation in Rust of the Starlark language."
-homepage = "https://github.com/google/starlark-rust"
+homepage = "https://github.com/facebookexperimental/starlark-rust"
 documentation = "https://docs.rs/crate/starlark"
 readme = "README.md"
 keywords = ["starlark", "skylark", "bazel", "language", "interpreter"]
