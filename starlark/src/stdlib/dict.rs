@@ -24,7 +24,7 @@ pub const POP_ON_EMPTY_DICT_ERROR_CODE: &str = "UF21";
 
 macro_rules! ok {
     ($e:expr) => {
-        return Ok(Value::from($e));
+        return Ok(Value::from($e))
     };
 }
 

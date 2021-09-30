@@ -25,7 +25,7 @@ pub const SET_REMOVE_ELEMENT_NOT_FOUND_ERROR_CODE: &str = "UF30";
 
 macro_rules! ok {
     ($e:expr) => {
-        return Ok(Value::from($e));
+        return Ok(Value::from($e))
     };
 }
 

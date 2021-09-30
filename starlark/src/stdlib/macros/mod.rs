@@ -363,7 +363,7 @@ macro_rules! starlark_err {
             message: $message,
             label: $label,
         }
-        .into());
+        .into())
     }
 }
 

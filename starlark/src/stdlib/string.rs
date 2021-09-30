@@ -29,7 +29,7 @@ pub const FORMAT_STRING_INVALID_CHARACTER_ERROR_CODE: &str = "UF04";
 
 macro_rules! ok {
     ($e:expr) => {
-        return Ok(Value::from($e));
+        return Ok(Value::from($e))
     };
 }
 
